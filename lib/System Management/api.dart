@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-const String main_URL = "http://192.168.22.243:2000/api";
+const String main_URL = "http://192.168.214.243:2000/api";
 
 const Map<String, dynamic> default_Headers = {
   "Content-type": "application/json"

@@ -1,6 +1,6 @@
 import 'package:welcomestoreapp/Data%20Management/Models/customers.dart';
 import 'package:welcomestoreapp/Data%20Management/Repository/customer_Repository.dart';
-import 'package:welcomestoreapp/Logic%20Builder/Cubits/userstates.dart';
+import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/userstates.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:welcomestoreapp/Services/preferences.dart';
 

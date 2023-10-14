@@ -133,9 +133,25 @@ class _SignupScreenState extends State<SignupScreen> {
                         Navigator.pushNamed(context, LoginScreen.routeName);
                       },
                       child: Text("Log In", style: TextStyles.textbuttonstyle),
-                    )
+                    ),
                   ],
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //     Text(
+                //       "Are you getting someting problem?",
+                //       textAlign: TextAlign.center,
+                //       style: TextStyles.heading_small,
+                //     ),
+                //     TextButton(
+                //       onPressed: () {},
+                //       child: Text("Click Here!",
+                //           style: TextStyles.textbuttonstyle),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),

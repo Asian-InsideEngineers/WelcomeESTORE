@@ -4,7 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:welcomestoreapp/Generated%20Routes/routes.dart';
-import 'package:welcomestoreapp/Logic%20Builder/Cubits/usercubit.dart';
+import 'package:welcomestoreapp/Logic%20Builder/Cart%20Logic/cartcubits.dart';
+import 'package:welcomestoreapp/Logic%20Builder/Category%20Logic/categorycubit.dart';
+import 'package:welcomestoreapp/Logic%20Builder/Product%20Logic/productcubit.dart';
+import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/usercubit.dart';
+
 import 'package:welcomestoreapp/Project%20Theme/Project_Colors.dart';
 import 'package:welcomestoreapp/User-Interfaces/splash_Screen.dart';
 
@@ -35,13 +39,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => UserCubits())],
+      providers: [
+        BlocProvider(create: (context) => UserCubits()),
+        BlocProvider(create: (context) => CategoryCubit()),
+        BlocProvider(create: (context) => ProductCubit()),
+        BlocProvider(
+            create: (context) =>
+                CartCubits(BlocProvider.of<UserCubits>(context))),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         onGenerateRoute: Routes.systemRoutes,
-        initialRoute: Splashscreen.routeName,
-        theme: projectThemes.project_Styles,
+        initialRoute: SplashScreen.routeName,
+        theme: ProjectThemes.project_Styles,
       ),
     );
   }

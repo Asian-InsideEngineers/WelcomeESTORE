@@ -2,10 +2,11 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:provider/provider.dart';
-import 'package:welcomestoreapp/Logic%20Builder/Cubits/usercubit.dart';
-import 'package:welcomestoreapp/Logic%20Builder/Cubits/userstates.dart';
+import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/usercubit.dart';
+import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/userstates.dart';
 
 import 'package:welcomestoreapp/Project%20Theme/Project_Colors.dart';
 import 'package:welcomestoreapp/Project%20Theme/widgets/distance_widget.dart';
@@ -31,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, State) {
         if (State is Userloggedinstate) {
           Navigator.popUntil(context, (route) => route.isFirst);
-          Navigator.pushReplacementNamed(context, Splashscreen.routeName);
+          Navigator.pushReplacementNamed(context, SplashScreen.routeName);
         }
       },
       child: SafeArea(
@@ -49,16 +50,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        "SIGN IN,",
-                        style: TextStyles.heading_large,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      // height: 10,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(
+                            "SIGN IN,",
+                            style: TextStyles.heading_large,
+                          ),
+                        ),
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundColor: Colors.indigoAccent,
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                FontAwesomeIcons.circleInfo,
+                                color: Colors.white,
+                                size: 15,
+                              )),
+                        ),
+                      ],
                     ),
                     (_provider.error != "")
                         ? Text(
@@ -86,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       labeltext: "Email",
                     ),
                     const DistanceWidget(),
-                    const DistanceWidget(),
+                    // const DistanceWidget(),
                     PrimaryTextfield(
                         controller: _provider.passwordcontroller,
                         validator: (Value) {
@@ -103,6 +117,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         labeltext: "password",
                         obsecuretext: true),
                     const DistanceWidget(),
+                    // const DistanceWidget(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text("Forgotten Paswword?",
+                              style: TextStyles.textbuttonstyle),
+                        ),
+                      ],
+                    ),
                     const DistanceWidget(),
                     PrimaryButton(
                       buttonname:
@@ -125,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text("Sign up",
                               style: TextStyles.textbuttonstyle),
-                        )
+                        ),
                       ],
                     ),
                   ],

@@ -11,7 +11,7 @@ class AppColors {
   static Color primarytextcolor = const Color(0xff343A40);
 }
 
-class projectThemes {
+class ProjectThemes {
   static ThemeData project_Styles = ThemeData(
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.common,
@@ -33,7 +33,7 @@ class projectThemes {
 class TextStyles {
   static TextStyle heading_large = GoogleFonts.montserrat(
     color: AppColors.primarytextcolor,
-    fontSize: 36,
+    fontSize: 32,
   );
   static TextStyle buttontextstyle = GoogleFonts.montserrat(
       color: AppColors.common, fontSize: 18, fontWeight: FontWeight.bold);
@@ -45,7 +45,7 @@ class TextStyles {
   static TextStyle heading_small = GoogleFonts.montserrat(
     color: AppColors.primarytextcolor,
     fontWeight: FontWeight.bold,
-    fontSize: 14,
+    fontSize: 16,
   );
 
   static TextStyle textbuttonstyle = GoogleFonts.montserrat(

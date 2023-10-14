@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:welcomestoreapp/Logic%20Builder/Cubits/usercubit.dart';
-import 'package:welcomestoreapp/Logic%20Builder/Cubits/userstates.dart';
+import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/usercubit.dart';
+import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/userstates.dart';
 import 'package:welcomestoreapp/main.dart';
 
 class signupprovider extends ChangeNotifier {
