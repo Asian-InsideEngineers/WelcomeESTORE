@@ -4,12 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/usercubit.dart';
 import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/userstates.dart';
+import 'package:welcomestoreapp/Frontend-Management/splash_Screen.dart';
 import 'package:welcomestoreapp/main.dart';
 
-class loginProvider extends ChangeNotifier {
+class LoginProvider extends ChangeNotifier {
+  final GlobalKey<FormState> loginformkey = GlobalKey<FormState>();
   final BuildContext context;
-  loginProvider(this.context) {
-    _cubit_Tracker();
+  LoginProvider(this.context) {
+    cubittracker();
   }
 
   bool isloading = false;
@@ -17,22 +19,22 @@ class loginProvider extends ChangeNotifier {
 
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
-  static final loginformkey = GlobalKey<FormState>();
   StreamSubscription? _usersubscription;
 
-  void _cubit_Tracker() {
+  void cubittracker() {
     log.d("userstate building");
     _usersubscription =
-        BlocProvider.of<UserCubits>(context).stream.listen((UserState) {
-      if (UserState is Userloadingstate) {
+        BlocProvider.of<UserCubits>(context).stream.listen((userstate) {
+      if (userstate is Userloadingstate) {
         isloading = true;
         error = "";
         notifyListeners();
-      } else if (UserState is Usererrorstate) {
+      } else if (userstate is Usererrorstate) {
         isloading = false;
-        error = UserState.message;
+        error = userstate.message;
         notifyListeners();
-      } else if (UserState is Userloggedinstate) {
+      } else if (userstate is Userloggedinstate) {
+        Navigator.pushNamed(context, SplashScreen.routeName);
         isloading = false;
         error = "";
         notifyListeners();

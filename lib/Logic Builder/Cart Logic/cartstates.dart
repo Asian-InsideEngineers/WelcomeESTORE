@@ -1,8 +1,8 @@
 import 'package:welcomestoreapp/Data%20Management/Models/cartmodel.dart';
 
 abstract class CartState {
-  final List<CartItemModel> items;
-  CartState(this.items);
+  final List<CartModel> cartitems;
+  CartState(this.cartitems);
 }
 
 class CartInititalState extends CartState {
@@ -10,14 +10,14 @@ class CartInititalState extends CartState {
 }
 
 class CartLoadingstate extends CartState {
-  CartLoadingstate(super.items);
+  CartLoadingstate(super.cartitems);
 }
 
 class CartLoadedState extends CartState {
-  CartLoadedState(super.items);
+  CartLoadedState(super.cartitems);
 }
 
 class CartErrorState extends CartState {
   final String cartMessage;
-  CartErrorState(this.cartMessage, super.items);
+  CartErrorState(this.cartMessage, super.cartitems);
 }

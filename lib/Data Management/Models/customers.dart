@@ -1,65 +1,79 @@
-class customer_Model {
-  String? sId;
+class CustomerModel {
+  String? id;
   String? email;
   String? password;
   String? fullname;
   String? state;
   String? city;
   String? address;
-  String? pincode;
-  String? phoneno;
-  int? profileprogress;
-  String? id;
+  int? pincode;
+  int? phoneno;
   String? updatedon;
   String? createdon;
 
-  customer_Model({
-    this.sId,
-    this.email,
-    this.password,
-    this.fullname,
-    this.state,
-    this.city,
-    this.address,
-    this.pincode,
-    this.phoneno,
-    this.profileprogress,
-    this.id,
-    this.updatedon,
-    this.createdon,
-  });
+  CustomerModel(
+      {this.id,
+      this.email,
+      this.password,
+      this.fullname,
+      this.state,
+      this.city,
+      this.address,
+      this.pincode,
+      this.phoneno,
+      this.updatedon,
+      this.createdon});
 
-  customer_Model.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    email = json['email'];
-    password = json['password'];
-    fullname = json['fullname'];
-    state = json['state'];
-    city = json['city'];
-    address = json['address'];
-    pincode = json['pincode'];
-    phoneno = json['phoneno'];
-    profileprogress = json['profileprogress'];
-    id = json['id'];
-    updatedon = json['updatedon'];
-    createdon = json['createdon'];
+  CustomerModel.fromJson(Map<String, dynamic> json) {
+    if (json["_id"] is String) {
+      id = json["_id"];
+    }
+    if (json["email"] is String) {
+      email = json["email"];
+    }
+    if (json["password"] is String) {
+      password = json["password"];
+    }
+    if (json["fullname"] is String) {
+      fullname = json["fullname"];
+    }
+    if (json["state"] is String) {
+      state = json["state"];
+    }
+    if (json["city"] is String) {
+      city = json["city"];
+    }
+    if (json["address"] is String) {
+      address = json["address"];
+    }
+
+    if (json["phoneno"] is int) {
+      phoneno = json["phoneno"];
+    }
+    if (json["pincode"] is int) {
+      pincode = json["pincode"];
+    }
+    if (json["updatedon"] is String) {
+      updatedon = json["updatedon"];
+    }
+    if (json["createdon"] is String) {
+      createdon = json["createdon"];
+    }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['email'] = this.email;
-    data['password'] = this.password;
-    data['fullname'] = this.fullname;
-    data['state'] = this.state;
-    data['city'] = this.city;
-    data['address'] = this.address;
-    data['pincode'] = this.pincode;
-    data['phoneno'] = this.phoneno;
-    data['profileprogress'] = this.profileprogress;
-    data['id'] = this.id;
-    data['updatedon'] = this.updatedon;
-    data['createdon'] = this.createdon;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["_id"] = id;
+    data["email"] = email;
+    data["password"] = password;
+    data["fullname"] = fullname;
+    data["state"] = state;
+    data["city"] = city;
+    data["address"] = address;
+    data["pincode"] = pincode;
+    data["phoneno"] = phoneno;
+    data["updatedon"] = updatedon;
+    data["createdon"] = createdon;
     return data;
   }
 }

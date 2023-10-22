@@ -4,49 +4,66 @@ import 'package:dio/dio.dart';
 import 'package:welcomestoreapp/Data%20Management/Models/customers.dart';
 import 'package:welcomestoreapp/System%20Management/api.dart';
 
-class customer_Repository {
+class CustomerRepository {
   final _api = APi();
 
-  Future<customer_Model> createAccount({
+  Future<CustomerModel> createAccount({
     required String email,
     required String password,
   }) async {
     try {
       Response response =
-          await _api.send_Request.post("/Customers/createAccount",
+          await _api.sendrequest.post("/Customers/createAccount",
               data: jsonEncode({
                 "email": email,
                 "password": password,
               }));
 
-      api_Response apiResponse = api_Response.fromResponse(response);
+      ApiResponse apiResponse = ApiResponse.fromResponse(response);
 
       if (!apiResponse.success) {
         throw apiResponse.message.toString();
       }
-      return customer_Model.fromJson(apiResponse.data);
+      return CustomerModel.fromJson(apiResponse.data);
     } catch (ex) {
       rethrow;
     }
   }
 
-  Future<customer_Model> signIn({
+  Future<CustomerModel> signIn({
     required String email,
     required String password,
   }) async {
     try {
-      Response response = await _api.send_Request.post("/Customers/signIn",
+      Response response = await _api.sendrequest.post("/Customers/signIn",
           data: jsonEncode({
             "email": email,
             "password": password,
           }));
 
-      api_Response apiResponse = api_Response.fromResponse(response);
+      ApiResponse apiResponse = ApiResponse.fromResponse(response);
 
       if (!apiResponse.success) {
         throw apiResponse.message.toString();
       }
-      return customer_Model.fromJson(apiResponse.data);
+      return CustomerModel.fromJson(apiResponse.data);
+    } catch (ex) {
+      rethrow;
+    }
+  }
+
+  Future<CustomerModel> updateuser(CustomerModel customerModel) async {
+    try {
+      Response response = await _api.sendrequest.put(
+          "/Customers/${customerModel.id}",
+          data: jsonEncode(customerModel.toJson()));
+
+      ApiResponse apiResponse = ApiResponse.fromResponse(response);
+
+      if (!apiResponse.success) {
+        throw apiResponse.message.toString();
+      }
+      return CustomerModel.fromJson(apiResponse.data);
     } catch (ex) {
       rethrow;
     }

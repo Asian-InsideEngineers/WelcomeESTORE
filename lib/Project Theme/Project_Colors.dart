@@ -43,7 +43,7 @@ class TextStyles {
     fontSize: 24,
   );
   static TextStyle heading_small = GoogleFonts.montserrat(
-    color: AppColors.primarytextcolor,
+    color: AppColors.common,
     fontWeight: FontWeight.bold,
     fontSize: 16,
   );

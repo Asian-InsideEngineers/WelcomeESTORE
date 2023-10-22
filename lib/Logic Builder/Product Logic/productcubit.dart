@@ -16,8 +16,9 @@ class ProductCubit extends Cubit<ProductsStates> {
     try {
       List<ProductModel> newproducts =
           await _productRepository.fetchAllProducts();
-
-      emit(ProductLoadedState(newproducts));
+      emit(ProductLoadedState(
+        newproducts,
+      ));
     } catch (error) {
       emit(ProductErrorState(error.toString(), state.clientProducts));
     }

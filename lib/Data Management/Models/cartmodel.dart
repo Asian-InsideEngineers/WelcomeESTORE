@@ -1,22 +1,28 @@
-import 'package:welcomestoreapp/Data%20Management/Models/products.dart';
+import 'package:welcomestoreapp/Data%20Management/Models/varients.dart';
 
-class CartItemModel {
-  ProductModel? products;
+class CartModel {
+  VarientModel? varients;
   int? quantity;
-  String? sId;
-  CartItemModel({this.quantity, this.sId, this.products});
+  String? id;
 
-  CartItemModel.fromJson(Map<String, dynamic> json) {
-    products = ProductModel.fromJson(json["Products"]);
-    quantity = json['Quantity'];
-    sId = json['_id'];
+  CartModel({this.quantity, this.id, required this.varients});
+
+  CartModel.fromJson(Map<String, dynamic> json) {
+    varients = json["varients"] != null
+        ? VarientModel.fromJson(json["varients"])
+        : null;
+    quantity = json["quantity"] != null && json["quantity"] is num
+        ? (json["quantity"] as num).toInt()
+        : null;
+    id = json["_id"] != null && json["_id"] is String ? json["_id"] : null;
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson({bool objectmode = false}) {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Products'] = this.products!.sId;
-    data['Quantity'] = this.quantity;
-    data['_id'] = this.sId;
+    data["quantity"] = quantity;
+    data["varients"] =
+        (objectmode == false) ? varients!.id : varients!.toJson();
+    data["_id"] = id;
     return data;
   }
 }

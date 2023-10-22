@@ -88,6 +88,11 @@ dependencies:
   currency_formatter: ^2.0.1
   bottom_sheet: ^4.0.0
   input_quantity: ^1.2.3
+  cached_network_image: ^3.2.3
+  liquid_pull_to_refresh: ^3.0.1
+  flutter_screenutil: ^5.9.0
+  syncfusion_flutter_pdfviewer: ^20.4.54
+
 
 dev_dependencies:
   flutter_test:
@@ -120,6 +125,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/lottie/
+    - assets/pdf/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

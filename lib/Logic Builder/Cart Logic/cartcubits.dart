@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:welcomestoreapp/Data%20Management/Models/cartmodel.dart';
-import 'package:welcomestoreapp/Data%20Management/Models/products.dart';
+import 'package:welcomestoreapp/Data%20Management/Models/varients.dart';
+
 import 'package:welcomestoreapp/Data%20Management/Repository/cartrepository.dart';
 import 'package:welcomestoreapp/Logic%20Builder/Cart%20Logic/cartstates.dart';
 
@@ -18,7 +19,7 @@ class CartCubits extends Cubit<CartState> {
   }
   void _handleUserStates(UserState userState) {
     if (userState is Userloggedinstate) {
-      cartInitilization(userState.userModel.sId!);
+      cartInitilization(userState.userModel.id!);
     } else if (userState is Userlogoutstate) {
       emit(CartInititalState());
     }
@@ -26,36 +27,82 @@ class CartCubits extends Cubit<CartState> {
 
   final _cartRepository = CartRepository();
 
+  void sortandload(List<CartModel> cartItems) {
+    cartItems.sort(
+      (a, b) => b.varients!.title!.compareTo(a.varients!.title!),
+    );
+    emit(CartLoadedState(cartItems));
+  }
+
   void cartInitilization(String userId) async {
-    emit(CartLoadingstate(state.items));
+    emit(CartLoadingstate(state.cartitems));
     try {
       final cartItems = await _cartRepository.fetchAllCartItems(userId);
-      emit(CartLoadedState(cartItems));
+      sortandload(cartItems);
     } catch (ex) {
-      emit(CartErrorState(ex.toString(), state.items));
+      emit(CartErrorState(ex.toString(), state.cartitems));
     }
   }
 
-  void addToCart(ProductModel products, int quantity) async {
+  void addToCart(int quantity, VarientModel varients) async {
     try {
-      emit(CartLoadingstate(state.items));
+      emit(CartLoadingstate(state.cartitems));
+
       if (_userCubits.state is Userloggedinstate) {
-        Userloggedinstate newUserState = _userCubits.state as Userloggedinstate;
-        CartItemModel newItem = CartItemModel(
-          products: products,
+        Userloggedinstate userState = _userCubits.state as Userloggedinstate;
+        CartModel newItem = CartModel(
           quantity: quantity,
+          varients: varients,
         );
 
-        final cartAddedItems = await _cartRepository.addToCart(
-            newItem as String, newUserState.userModel.sId! as CartItemModel);
+        final cartAddedItems =
+            await _cartRepository.addToCart(userState.userModel.id!, newItem);
 
-        emit(CartLoadedState(cartAddedItems));
+        sortandload(cartAddedItems);
       } else {
-        throw ("your're Loggedout");
+        throw ("your're loggedout");
       }
     } catch (ex) {
-      emit(CartErrorState(ex.toString(), state.items));
+      emit(CartErrorState(ex.toString(), state.cartitems));
     }
+  }
+
+  void removetocart(VarientModel varients) async {
+    try {
+      emit(CartLoadingstate(state.cartitems));
+
+      if (_userCubits.state is Userloggedinstate) {
+        Userloggedinstate userState = _userCubits.state as Userloggedinstate;
+
+        final cartremoveditems = await _cartRepository.removeFromCart(
+            userState.userModel.id!, varients.id!);
+
+        sortandload(cartremoveditems);
+      } else {
+        throw ("your're loggedout");
+      }
+    } catch (ex) {
+      emit(CartErrorState(ex.toString(), state.cartitems));
+    }
+  }
+
+  bool cartchecking(VarientModel varients) {
+    if (state.cartitems.isNotEmpty) {
+      final founditems = state.cartitems
+          .where((cartitems) => cartitems.varients!.id == varients.id!)
+          .toList();
+
+      if (founditems.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  void cartclear() {
+    emit(CartLoadedState([]));
   }
 
   @override

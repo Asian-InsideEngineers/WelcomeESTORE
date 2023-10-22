@@ -9,10 +9,10 @@ class UserCubits extends Cubit<UserState> {
     _cubitinitialize();
   }
 
-  final customer_Repository _customer_repository = customer_Repository();
+  final CustomerRepository _customer_repository = CustomerRepository();
 
   void _emitloggedinstate({
-    required customer_Model userModel,
+    required CustomerModel userModel,
     required String email,
     required String password,
   }) async {
@@ -38,7 +38,7 @@ class UserCubits extends Cubit<UserState> {
   }) async {
     emit(Userloadingstate());
     try {
-      customer_Model userModel =
+      CustomerModel userModel =
           await _customer_repository.signIn(email: email, password: password);
       _emitloggedinstate(
           userModel: userModel, email: email, password: password);
@@ -53,7 +53,7 @@ class UserCubits extends Cubit<UserState> {
   }) async {
     emit(Userloadingstate());
     try {
-      customer_Model guestModel = await _customer_repository.createAccount(
+      CustomerModel guestModel = await _customer_repository.createAccount(
           email: email, password: password);
 
       _emitloggedinstate(
@@ -63,7 +63,21 @@ class UserCubits extends Cubit<UserState> {
     }
   }
 
-  void clear() async {
+  Future<bool> updatedUser(CustomerModel usermodel) async {
+    emit(Userloadingstate());
+    try {
+      CustomerModel updateduser =
+          await _customer_repository.updateuser(usermodel);
+
+      emit(Userloggedinstate(updateduser));
+      return true;
+    } catch (message) {
+      emit(Usererrorstate(message.toString()));
+      return false;
+    }
+  }
+
+  void signout() async {
     await Preference.clear();
     emit(Userlogoutstate());
   }

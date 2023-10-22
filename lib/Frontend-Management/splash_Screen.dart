@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/usercubit.dart';
 import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/userstates.dart';
-import 'package:welcomestoreapp/User-Interfaces/Authentication/login_Screen.dart';
-import 'package:welcomestoreapp/User-Interfaces/Dashboard/dashboard.dart';
+import 'package:welcomestoreapp/Frontend-Management/Authentication/login_Screen.dart';
+
+import 'package:welcomestoreapp/Frontend-Management/User%20Interfaces/dashboard.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -44,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<UserCubits, UserState>(
-      listener: (context, State) {
+      listener: (context, state) {
         startingPage();
       },
       child: Container(
@@ -52,7 +53,10 @@ class _SplashScreenState extends State<SplashScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Theme.of(context).colorScheme.onPrimary,
-        child: Lottie.asset("assets/lottie/splash_Screen.json"),
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Lottie.asset("assets/lottie/splash_Screen.json"),
+        ),
       ),
     );
   }

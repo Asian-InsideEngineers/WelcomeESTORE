@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:logger/logger.dart';
 import 'package:welcomestoreapp/Generated%20Routes/routes.dart';
 import 'package:welcomestoreapp/Logic%20Builder/Cart%20Logic/cartcubits.dart';
 import 'package:welcomestoreapp/Logic%20Builder/Category%20Logic/categorycubit.dart';
+import 'package:welcomestoreapp/Logic%20Builder/Order%20Logic/ordercubit.dart';
 import 'package:welcomestoreapp/Logic%20Builder/Product%20Logic/productcubit.dart';
+
 import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/usercubit.dart';
 
 import 'package:welcomestoreapp/Project%20Theme/Project_Colors.dart';
-import 'package:welcomestoreapp/User-Interfaces/splash_Screen.dart';
+import 'package:welcomestoreapp/Frontend-Management/splash_Screen.dart';
+
+import 'Logic Builder/Search Logic/searchlogic.dart';
 
 var log = Logger(
   printer: PrettyPrinter(
@@ -20,8 +25,8 @@ var log = Logger(
 );
 void main() async {
   runApp(const MyApp());
-  Bloc.observer = myBlocObserver();
-  await GetStorage.init();
+  Bloc.observer = MyBlocObserver();
+
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
@@ -43,16 +48,30 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => UserCubits()),
         BlocProvider(create: (context) => CategoryCubit()),
         BlocProvider(create: (context) => ProductCubit()),
+        BlocProvider(create: (context) => SearchCubit()),
         BlocProvider(
             create: (context) =>
                 CartCubits(BlocProvider.of<UserCubits>(context))),
+        BlocProvider(
+          create: (context) => OrderCubits(
+            BlocProvider.of<UserCubits>(context),
+            BlocProvider.of<CartCubits>(context),
+          ),
+        ),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: Routes.systemRoutes,
-        initialRoute: SplashScreen.routeName,
-        theme: ProjectThemes.project_Styles,
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp(
+            title: "Lets Shop",
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: Routes.systemRoutes,
+            initialRoute: SplashScreen.routeName,
+            theme: ProjectThemes.project_Styles,
+          );
+        },
       ),
     );
   }
@@ -74,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class myBlocObserver extends BlocObserver {
+class MyBlocObserver extends BlocObserver {
   @override
   void onCreate(BlocBase bloc) {
     log.d("Generated: $bloc");

@@ -1,29 +1,48 @@
 class CategoryModel {
-  String? sId;
   String? title;
   String? description;
+  String? image;
+  String? id;
   String? createdon;
+  int? v;
 
-  CategoryModel({
-    this.sId,
-    this.title,
-    this.description,
-    this.createdon,
-  });
+  CategoryModel(
+      {this.title,
+      this.description,
+      this.image,
+      this.id,
+      this.createdon,
+      this.v});
 
   CategoryModel.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    title = json['title'];
-    description = json['description'];
-    createdon = json['createdon'];
+    if (json["title"] is String) {
+      title = json["title"];
+    }
+    if (json["description"] is String) {
+      description = json["description"];
+    }
+    if (json["image"] is String) {
+      image = json["image"];
+    }
+    if (json["_id"] is String) {
+      id = json["_id"];
+    }
+    if (json["createdon"] is String) {
+      createdon = json["createdon"];
+    }
+    if (json["__v"] is num) {
+      v = (json["__v"] as num).toInt();
+    }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['createdon'] = this.createdon;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["title"] = title;
+    data["description"] = description;
+    data["image"] = image;
+    data["_id"] = id;
+    data["createdon"] = createdon;
+    data["__v"] = v;
     return data;
   }
 }

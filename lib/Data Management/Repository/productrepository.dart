@@ -8,9 +8,9 @@ class ProductRepository {
 
   Future<List<ProductModel>> fetchAllProducts() async {
     try {
-      Response response = await _api.send_Request.get("/Products");
+      Response response = await _api.sendrequest.get("/Products");
 
-      api_Response apiResponse = api_Response.fromResponse(response);
+      ApiResponse apiResponse = ApiResponse.fromResponse(response);
 
       if (!apiResponse.success) {
         throw apiResponse.message.toString();
@@ -26,9 +26,9 @@ class ProductRepository {
   Future<List<ProductModel>> fetchProductsById(String cateoryID) async {
     try {
       Response response =
-          await _api.send_Request.get("/Products/Categories/$cateoryID");
+          await _api.sendrequest.get("/Products/Categories/$cateoryID");
 
-      api_Response apiResponse = api_Response.fromResponse(response);
+      ApiResponse apiResponse = ApiResponse.fromResponse(response);
 
       if (!apiResponse.success) {
         throw apiResponse.message.toString();

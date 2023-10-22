@@ -6,10 +6,11 @@ import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/usercubit.dart';
 import 'package:welcomestoreapp/Logic%20Builder/User%20Logic/userstates.dart';
 import 'package:welcomestoreapp/main.dart';
 
-class signupprovider extends ChangeNotifier {
+class SignupProvider extends ChangeNotifier {
   final BuildContext context;
-  signupprovider(this.context) {
-    _cubit_Tracker();
+  final GlobalKey<FormState> signupformkey = GlobalKey<FormState>();
+  SignupProvider(this.context) {
+    cubittracker();
   }
 
   bool isloading = false;
@@ -18,20 +19,20 @@ class signupprovider extends ChangeNotifier {
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
   final TextEditingController cpasswordcontroller = TextEditingController();
-  static final signupformkey = GlobalKey<FormState>();
+
   StreamSubscription? _usersubscription;
 
-  void _cubit_Tracker() {
+  void cubittracker() {
     log.d("userstate building");
     _usersubscription =
-        BlocProvider.of<UserCubits>(context).stream.listen((UserState) {
-      if (UserState is Userloadingstate) {
+        BlocProvider.of<UserCubits>(context).stream.listen((userstate) {
+      if (userstate is Userloadingstate) {
         isloading = true;
         error = "";
         notifyListeners();
-      } else if (UserState is Usererrorstate) {
+      } else if (userstate is Usererrorstate) {
         isloading = false;
-        error = UserState.message;
+        error = userstate.message;
         notifyListeners();
       } else {
         isloading = false;
