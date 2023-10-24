@@ -17,7 +17,6 @@ import 'package:welcomestoreapp/Logic%20Builder/Cart%20Logic/cartstates.dart';
 
 import 'package:welcomestoreapp/Project%20Theme/Project_Colors.dart';
 import 'package:welcomestoreapp/Project%20Theme/widgets/distance_widget.dart';
-import 'package:welcomestoreapp/Frontend-Management/User%20Interfaces/Carts%20and%20Orders/myorders.dart';
 import 'package:welcomestoreapp/Frontend-Management/User%20Interfaces/Responsive/responsive.dart';
 
 import '../../../Services/billingcalculator.dart';
@@ -138,7 +137,8 @@ class CartUiMaxWidth extends StatelessWidget {
                           CupertinoButton(
                             padding: const EdgeInsets.all(0),
                             onPressed: () {
-                              Navigator.pushNamed(context, MyOrders.routeName);
+                              Navigator.pushNamed(
+                                  context, UserAddressDetails.routeName);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

@@ -7,7 +7,7 @@ class CategoryRepository {
 
   Future<List<CategoryModel>> fetchAllCategories() async {
     try {
-      Response response = await _api.sendrequest.get("/Categories");
+      Response response = await _api.sendRequest.get("/Categories");
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);
 

@@ -13,7 +13,7 @@ class CustomerRepository {
   }) async {
     try {
       Response response =
-          await _api.sendrequest.post("/Customers/createAccount",
+          await _api.sendRequest.post("/Customers/createAccount",
               data: jsonEncode({
                 "email": email,
                 "password": password,
@@ -35,7 +35,7 @@ class CustomerRepository {
     required String password,
   }) async {
     try {
-      Response response = await _api.sendrequest.post("/Customers/signIn",
+      Response response = await _api.sendRequest.post("/Customers/signIn",
           data: jsonEncode({
             "email": email,
             "password": password,
@@ -54,7 +54,7 @@ class CustomerRepository {
 
   Future<CustomerModel> updateuser(CustomerModel customerModel) async {
     try {
-      Response response = await _api.sendrequest.put(
+      Response response = await _api.sendRequest.put(
           "/Customers/${customerModel.id}",
           data: jsonEncode(customerModel.toJson()));
 

@@ -8,7 +8,7 @@ class OrderRepository {
 
   Future<List<OrderModel>> fetchOrdersForCustomers(String customersId) async {
     try {
-      Response response = await _api.sendrequest.get("/orders/$customersId");
+      Response response = await _api.sendRequest.get("/orders/$customersId");
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);
 
@@ -25,7 +25,7 @@ class OrderRepository {
 
   Future<OrderModel> createorder(OrderModel orderModel) async {
     try {
-      Response response = await _api.sendrequest
+      Response response = await _api.sendRequest
           .post("/orders", data: jsonEncode(orderModel.toJson()));
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);

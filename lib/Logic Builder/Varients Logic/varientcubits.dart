@@ -15,8 +15,7 @@ class VarientCubits extends Cubit<VarientStates> {
   void varientInitialization() async {
     emit(VarientLoadingStates(state.productvarients));
     try {
-      final products =
-          await _varientRepository.Fetchvarientsbyproductid(productId.id!);
+      final products = await _varientRepository.fetchvarientbyid(productId.id!);
 
       emit(VarientLoadedStates(products));
     } catch (error) {

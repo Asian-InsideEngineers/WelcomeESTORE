@@ -1,18 +1,19 @@
 import 'package:dio/dio.dart';
+
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-const String BASE_URL = "http://192.168.91.243:2000/api";
-
+const String BASE_URL = "http://192.168.97.243:2000/api";
 const Map<String, dynamic> DEFAULT_HEADERS = {
   "Content-type": "application/json"
 };
 
 class APi {
-  final Dio requestmanager = Dio();
+  final Dio requestManager = Dio();
+
   APi() {
-    requestmanager.options.baseUrl = BASE_URL;
-    requestmanager.options.headers = DEFAULT_HEADERS;
-    requestmanager.interceptors.add(PrettyDioLogger(
+    requestManager.options.baseUrl = BASE_URL;
+    requestManager.options.headers = DEFAULT_HEADERS;
+    requestManager.interceptors.add(PrettyDioLogger(
       requestBody: true,
       requestHeader: true,
       responseBody: true,
@@ -22,7 +23,7 @@ class APi {
     ));
   }
 
-  Dio get sendrequest => requestmanager;
+  Dio get sendRequest => requestManager;
 }
 
 class ApiResponse {
@@ -35,10 +36,14 @@ class ApiResponse {
     this.data,
     this.message,
   });
+
   factory ApiResponse.fromResponse(Response response) {
     final data = response.data as Map<String, dynamic>;
 
     return ApiResponse(
-        success: data["success"], data: data["data"], message: data["message"]);
+      success: data["success"],
+      data: data["data"],
+      message: data["message"],
+    );
   }
 }

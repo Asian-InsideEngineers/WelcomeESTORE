@@ -40,7 +40,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
             child: Center(
               child: WebView(
                 initialUrl:
-                    'https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAWK3ZYNURjA1Mko0WEY1Nzk3NzhZREw1MzZUNFlFRi4u',
+                    'https://docs.google.com/forms/d/e/1FAIpQLSeVLg63VVn7mDYiC-c3r4xn3JiRq9GO0_lxYmxbZxhCx48org/viewform?usp=sf_link',
                 onProgress: (progress) {
                   setState(() {
                     webprogress = progress / 100;

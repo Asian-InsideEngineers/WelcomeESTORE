@@ -9,7 +9,7 @@ class VarientRepository {
 
   Future<List<VarientModel>> fetchAllVarients() async {
     try {
-      Response response = (await _api.sendrequest.get("/varients"));
+      Response response = (await _api.sendRequest.get("/varients"));
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);
 
@@ -24,10 +24,10 @@ class VarientRepository {
     }
   }
 
-  Future<List<VarientModel>> Fetchvarientsbyproductid(String productId) async {
+  Future<List<VarientModel>> fetchvarientbyid(String productId) async {
     try {
       Response response =
-          await _api.sendrequest.get("/varients/Products/$productId");
+          await _api.sendRequest.get("/varients/Products/$productId");
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);
 

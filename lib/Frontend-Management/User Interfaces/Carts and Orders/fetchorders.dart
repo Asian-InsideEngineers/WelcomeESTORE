@@ -72,7 +72,7 @@ class _FetchOrdersState extends State<FetchOrders> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   color: Colors.white.withOpacity(0.1)),
-                              constraints: const BoxConstraints(maxHeight: 220),
+                              // constraints: const BoxConstraints(maxHeight: 350),
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

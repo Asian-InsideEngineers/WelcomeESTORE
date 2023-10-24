@@ -8,7 +8,7 @@ class ProductRepository {
 
   Future<List<ProductModel>> fetchAllProducts() async {
     try {
-      Response response = await _api.sendrequest.get("/Products");
+      Response response = await _api.sendRequest.get("/Products");
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);
 
@@ -26,7 +26,7 @@ class ProductRepository {
   Future<List<ProductModel>> fetchProductsById(String cateoryID) async {
     try {
       Response response =
-          await _api.sendrequest.get("/Products/Categories/$cateoryID");
+          await _api.sendRequest.get("/Products/Categories/$cateoryID");
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);
 

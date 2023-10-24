@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +28,7 @@ var log = Logger(
 void main() async {
   runApp(const MyApp());
   Bloc.observer = MyBlocObserver();
-
+  HttpOverrides.global = new MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
@@ -122,5 +124,14 @@ class MyBlocObserver extends BlocObserver {
   void onTransition(Bloc bloc, Transition transition) {
     log.d("Generated: $transition");
     super.onTransition(bloc, transition);
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

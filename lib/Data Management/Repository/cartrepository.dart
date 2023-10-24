@@ -9,7 +9,7 @@ class CartRepository {
 
   Future<List<CartModel>> fetchAllCartItems(String customersId) async {
     try {
-      Response response = await _api.sendrequest.get("/carts/$customersId");
+      Response response = await _api.sendRequest.get("/carts/$customersId");
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);
 
@@ -30,7 +30,7 @@ class CartRepository {
       Map<String, dynamic> adddata = cartitems.toJson();
       adddata["Customers"] = customersId;
       Response response =
-          await _api.sendrequest.post("/carts", data: jsonEncode(adddata));
+          await _api.sendRequest.post("/carts", data: jsonEncode(adddata));
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);
 
@@ -53,7 +53,7 @@ class CartRepository {
         "cartproducts": varientID,
       };
       Response response =
-          await _api.sendrequest.delete("/carts", data: jsonEncode(removedata));
+          await _api.sendRequest.delete("/carts", data: jsonEncode(removedata));
 
       ApiResponse apiResponse = ApiResponse.fromResponse(response);
 

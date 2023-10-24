@@ -131,7 +131,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                         .heading_medium
                                                         .copyWith(
                                                             color: Colors.white,
-                                                            fontSize: 34,
+                                                            fontSize: 30,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
